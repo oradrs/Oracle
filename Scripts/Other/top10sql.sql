@@ -1,10 +1,11 @@
 col sql for a40
-Prompt Top 10 by Buffer Gets:
 
+Prompt Top 10 by Buffer Gets:
+Prompt ~~~~~~~~~~~~~~~~~~~~~~
 set linesize 180
 set pagesize 180
 SELECT * FROM
-(SELECT substr(sql_text,1,40) sql,sql_id,
+(SELECT substr(trim(sql_text),1,40) sql,sql_id,
         buffer_gets, executions, buffer_gets/(case when executions>0 then executions else 1 end) "Gets/Exec",
         hash_value,address
    FROM V$SQLAREA
@@ -14,11 +15,11 @@ WHERE rownum <= 10
 ;
 
 Prompt Top 10 by Physical Reads:
-
+Prompt ~~~~~~~~~~~~~~~~~~~~~~~~~
 set linesize 180
 set pagesize 180
 SELECT * FROM
-(SELECT substr(sql_text,1,40) sql,sql_id,
+(SELECT substr(trim(sql_text),1,40) sql,sql_id,
         disk_reads, executions, disk_reads/(case when executions>0 then executions else 1 end) "Reads/Exec",
         hash_value,address
    FROM V$SQLAREA
@@ -28,11 +29,11 @@ WHERE rownum <= 10
 ;
 
 Prompt Top 10 by Executions:
-
+Prompt ~~~~~~~~~~~~~~~~~~~~
 set linesize 180
 set pagesize 180
 SELECT * FROM
-(SELECT substr(sql_text,1,40) sql,sql_id,
+(SELECT substr(trim(sql_text),1,40) sql,sql_id,
         executions, rows_processed, rows_processed/executions "Rows/Exec",
         hash_value,address
    FROM V$SQLAREA
@@ -42,11 +43,11 @@ WHERE rownum <= 10
 ;
 
 Prompt Top 10 by Parse Calls:
-
+Prompt ~~~~~~~~~~~~~~~~~~~~~
 set linesize 180
 set pagesize 180
 SELECT * FROM
-(SELECT substr(sql_text,1,40) sql,sql_id,
+(SELECT substr(trim(sql_text),1,40) sql,sql_id,
         parse_calls, executions, hash_value,address
    FROM V$SQLAREA
   WHERE parse_calls > 1000
@@ -55,11 +56,11 @@ WHERE rownum <= 10
 ;
 
 Prompt Top 10 by Sharable Memory:
-
+Prompt ~~~~~~~~~~~~~~~~~~~~~~~~~
 set linesize 180
 set pagesize 180
 SELECT * FROM 
-(SELECT substr(sql_text,1,40) sql,sql_id,
+(SELECT substr(trim(sql_text),1,40) sql,sql_id,
         sharable_mem, executions, hash_value,address
    FROM V$SQLAREA
   WHERE sharable_mem > 1048576
@@ -68,11 +69,11 @@ WHERE rownum <= 10
 ;
 
 Prompt Top 10 by Version Count:
-
+Prompt ~~~~~~~~~~~~~~~~~~~~~~~~
 set linesize 180
 set pagesize 180
 SELECT * FROM 
-(SELECT substr(sql_text,1,40) sql,sql_id,
+(SELECT substr(trim(sql_text),1,40) sql,sql_id,
         version_count, executions, hash_value,address
    FROM V$SQLAREA
   WHERE version_count > 20

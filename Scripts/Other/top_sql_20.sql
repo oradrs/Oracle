@@ -50,4 +50,5 @@ CAST (DBMS_LOB.SUBSTR (sht.sql_text, 20) AS VARCHAR (20)
 ORDER BY "Snap Day" DESC) i1
 ORDER BY "Snap Day" DESC)
 WHERE "Rank" <= 20 
-AND "Snap Day" between TO_CHAR (SYSDATE-4, 'MM/DD/YY') and TO_CHAR (SYSDATE, 'MM/DD/YY');  --change analyze period here
+AND "Snap Day" between TO_CHAR (SYSDATE-4, 'MM/DD/YY') and TO_CHAR (SYSDATE, 'MM/DD/YY');
+--change analyze period here
