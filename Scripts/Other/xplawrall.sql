@@ -12,6 +12,8 @@
 
 -- Output : Performace summary for each plan and execution plan
 
+-- alternative of planx, sqlperf.sql
+
 -- ------------------------------------------
 
 set verify on lines 200 pages 9999
