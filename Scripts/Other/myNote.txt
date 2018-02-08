@@ -1,0 +1,8 @@
+-- This file will have URLs, small notes/point
+
+-- ------------------------------------------
+
+-- SQL: Script collection for Oracle
+https://github.com/anjuls/SAP_Note_1438410_V49
+-- ------------------------------------------
+
