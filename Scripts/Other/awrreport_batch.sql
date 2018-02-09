@@ -3,7 +3,9 @@
 -- Oracle AWR and AWR SQL report batch generation script 
 -- 
 -- This script for Oracle 11g R1/R2 Unix/Linux platform. 
---
+-- Perferably run this file on Oracle server instead of from remote client. 
+-- Ensure ADDM report is also generated at end of in AWR.
+
 whenever sqlerror exit 1;
 whenever oserror exit 1;
 
@@ -231,3 +233,4 @@ whenever oserror continue;
 set feedback on veri on trimspool off trimout off;
 
 !rm awrreport_exec_batch.sql
+!del awrreport_exec_batch.sql
