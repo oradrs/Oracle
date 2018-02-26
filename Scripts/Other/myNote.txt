@@ -6,3 +6,15 @@
 https://github.com/anjuls/SAP_Note_1438410_V49
 -- ------------------------------------------
 
+SQLT
+SQLHC
+planx
+sqlash
+SQLDB 360
+
+AWR
+ASH
+SQL Tuning Advisor (after load test performed and/or AWR / sql_id is available)
+	AWR_create_tuning_task.sql - against AWR
+	create_tuning_task.sql - sql id available in cache
+snapper

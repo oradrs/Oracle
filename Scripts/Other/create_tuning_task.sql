@@ -7,7 +7,7 @@ set verify off
 col recommendations for a150
 accept task_name -
        prompt 'Task_Name: '
- DECLARE
+DECLARE
  ret_val VARCHAR2(4000);
 
 BEGIN
@@ -19,6 +19,11 @@ dbms_sqltune.execute_tuning_task('&&Task_name');
 
 END;
 /
+
+--  check the progress (from another session)
+SELECT status FROM USER_ADVISOR_TASKS WHERE task_name = '&&Task_name';
+
 SELECT DBMS_SQLTUNE.report_tuning_task('&&task_name') AS recommendations FROM dual;
 undef task_name
+undef sql_id
 
