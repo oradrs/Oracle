@@ -149,3 +149,15 @@ and block=1;
 
 
 
+-- ------------------------------------------
+-- To know who is blocking due to locking
+-- Source : Video https://asktom.oracle.com/pls/asktom/f?p=100:11:::NO:RP:P11_QUESTION_ID:9537131900346726613
+
+SELECT sid,
+       LAST_CALL_ET sec,
+       NVL2(lockwait,'BLOCKED',status) status,
+       BLOCKING_SESSION,
+       (SELECT sql_text FROM v$sql WHERE sql_id = s.sql_id) TEXT
+FROM v$session s
+WHERE TYPE = 'USER';
+

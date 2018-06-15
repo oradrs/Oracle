@@ -40,10 +40,11 @@ DECLARE
  task_prefix VARCHAR2(20);
 BEGIN
 
-    task_prefix := 'sa2_';
+    task_prefix := 'sa1_';
 
-    FOR c IN (SELECT sql_id FROM topsql)
+    FOR c IN (SELECT sql_id FROM topsql WHERE SECONDS_SINCE_DATE > 1000 AND sql_id NOT IN ('9by78xst5ujqs', 'bpq3txxubt71g'))
     LOOP
+        dbms_output.put_line('SQL_id : ' || c.sql_id);
     --  drop task if exists
         begin
             dbms_sqltune.drop_tuning_task(task_prefix || c.sql_id);
@@ -52,9 +53,14 @@ BEGIN
               null;
         END;
 
+        begin
     -- create  execute advisor; time_limit=>300 in seconds
-       ret_val := dbms_sqltune.create_tuning_task(task_name=> task_prefix || c.sql_id, sql_id=>c.sql_id, time_limit=>300);
+       ret_val := dbms_sqltune.create_tuning_task(task_name=> task_prefix || c.sql_id, sql_id=>c.sql_id, time_limit=>60);
       dbms_sqltune.execute_tuning_task(task_prefix || c.sql_id);
+        EXCEPTION
+           WHEN OTHERS THEN
+               dbms_output.put_line('Err while SQL_id : ' || c.sql_id);
+        END;
 
     END LOOP;
 

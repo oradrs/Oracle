@@ -98,3 +98,43 @@ SELECT DBMS_SQLTUNE.REPORT_TUNING_TASK( 'nf_sql_tuning_task') FROM DUAL;
 --  drop the task
 Exec DBMS_SQLTUNE.drop_tuning_task(task_name => 'nf_sql_tuning_task');
 
+-- ------------------------------------------
+-- Purpose :  Generate sql advisor for bulk SQLs 
+
+-- get top 100 sqls using topsql_v2.sql
+-- create table TOPSQL (sql_id varchar(30));
+-- insert them in TOPSQL table
+-- monitor them in OEM / performance tab -> sql tuning advisor for report
+
+
+DECLARE
+ ret_val VARCHAR2(4000);
+ task_prefix VARCHAR2(20);
+BEGIN
+
+    task_prefix := 'sa1_';
+
+    FOR c IN (SELECT sql_id FROM topsql)
+    LOOP
+        dbms_output.put_line('SQL_id : ' || c.sql_id);
+    --  drop task if exists
+        begin
+            dbms_sqltune.drop_tuning_task(task_prefix || c.sql_id);
+        EXCEPTION
+           WHEN OTHERS THEN
+              null;
+        END;
+
+        begin
+    -- create  execute advisor; time_limit=>300 in seconds
+       ret_val := DBMS_SQLTUNE.CREATE_TUNING_TASK ( begin_snap => 400, end_snap => 500, sql_id=>c.sql_id , scope => 'COMPREHENSIVE', time_limit => 500, task_name=> task_prefix || c.sql_id );
+      dbms_sqltune.execute_tuning_task(task_prefix || c.sql_id);
+        EXCEPTION
+           WHEN OTHERS THEN
+               dbms_output.put_line('Err while SQL_id : ' || c.sql_id);
+        END;
+
+    END LOOP;
+
+END;
+/
