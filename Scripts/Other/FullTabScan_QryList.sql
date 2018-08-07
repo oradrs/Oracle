@@ -34,7 +34,7 @@ WHERE SQL_ID IN (SELECT DISTINCT SQL_ID
                  AND   SQL_OPNAME = 'SELECT'
                  AND   SQL_PLAN_OPERATION = 'TABLE ACCESS'
                  AND   SESSION_TYPE = 'FOREGROUND'
---                 AND SQL_TEXT NOT LIKE '/* SQL Analyze%'
+                 AND SQL_TEXT NOT LIKE '/* SQL Analyze%'
                  );
 
 -- ------------------------------------------
