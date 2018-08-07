@@ -5,8 +5,8 @@ SET PAGESIZE 9999
 SET LINESIZE 155
 set verify off
 col recommendations for a150
-accept task_name -
-       prompt 'Task_Name: '
+--accept task_name -
+--       prompt 'Task_Name: '
 DECLARE
  ret_val VARCHAR2(4000);
 
