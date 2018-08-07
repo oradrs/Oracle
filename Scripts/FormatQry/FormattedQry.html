@@ -1,0 +1,15 @@
+<html>
+<script src="sql-formatter.js"></script>
+<script src="highlight.pack.js"></script>
+<link rel="stylesheet" href="vs.css">
+<body>
+Formatted Query : 
+<br>
+
+<pre><code class="sql" id="output"></code></pre>
+<script>
+document.getElementById("output").innerHTML = window.sqlFormatter.format("select * from EMP;");
+</script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
