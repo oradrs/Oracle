@@ -56,3 +56,29 @@ select sub.sql_id,
   join dba_hist_sqltext txt on sub.sql_id = txt.sql_id
  where r < 500
  order by seconds_since_date desc;
+
+-- ------------------------------------------
+-- get snap id range
+select * from dba_hist_snapshot order by snap_id;
+
+-- get unique sql_id between 2 snap id
+SELECT s.sql_id
+       , COUNT(*)
+FROM DBA_HIST_SQLSTAT s
+WHERE s.snap_id BETWEEN 4796 AND 4820
+AND   PARSING_SCHEMA_NAME = '&user_name'
+GROUP BY s.sql_id;
+
+-- list of sqlid, text etc between 2 snap id; might get duplicates
+SELECT t.sql_id
+       , t.sql_text
+       , s.executions_total
+       , s.elapsed_time_total
+FROM DBA_HIST_SQLSTAT s
+     , DBA_HIST_SQLTEXT t
+WHERE t.sql_id = s.sql_id
+AND   s.snap_id BETWEEN 4796 AND 4820
+AND   PARSING_SCHEMA_NAME = '&user_name';
+
+
+ 
