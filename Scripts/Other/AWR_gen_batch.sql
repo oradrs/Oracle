@@ -1,5 +1,21 @@
 -- Purpose : To generate multiple AWR html reports for input snapshot ids range
 -- How to :  @AWR_gen_batch.sql
+-- child script : AWR_gen_batch_2.sql
+-- Generated script to run : batch.sql
+--
+-- ------------------------------------------
+-- Query to get list of snap id for input
+
+--    SELECT snap_id, begin_interval_time, end_interval_time 
+--    FROM dba_hist_snapshot 
+--    --WHERE begin_interval_time > TO_DATE('2011-06-07 07:00:00', 'YYYY-MM-DD HH24:MI:SS') 
+--    -- WHERE end_interval_time > SYSDATE - 1
+--    WHERE begin_interval_time >= sysdate-1
+--    AND end_interval_time <= sysdate
+--    ORDER BY end_interval_time;
+
+
+-- ------------------------------------------
 
 set echo off heading off feedback off verify off
 -- select 'Please enter dates in DD-MON-YYYY HH24 format:' from dual;
